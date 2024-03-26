@@ -66,6 +66,11 @@ class ProductController extends Controller
         self::ok(Product::where('slug',$slug)->first());
     }
 
+    public function show_by_id($product_id)
+    {
+        self::ok(Product::find($product_id));
+    }
+
     /**
      * @param UpdateProductRequest $request
      * @param $product_id

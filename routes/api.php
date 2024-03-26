@@ -37,25 +37,18 @@ Route::group([
     Route::post('users/update',[UserController::class,'update']);
     Route::get('users/show',[UserController::class,'show']);
     Route::post('users/fcm_token_edit',[UserController::class,'edit']);
-    Route::post('notify',[NotificationController::class,'notify']);
 
     // Products
     Route::post('products/create',[ProductController::class,'create']);
     Route::post('products/import',[ProductController::class,'import']);
     Route::post('products/{product_id}/update',[ProductController::class,'update']);
     Route::delete('products/{product_id}/delete',[ProductController::class,'destroy']);    
-    Route::post('products',[ProductController::class,'index']);
-    Route::get('products/top_sellers',[ProductController::class,'index_top_sellers']);
-    Route::get('products/{slug}',[ProductController::class,'show']);
-    Route::get('products/{product_id}/price',[ProductController::class,'get_price']);
-    Route::get('products/{product_id}/image',[ProductController::class,'get_image']);
-    Route::get('products_total_count',[ProductController::class,'get_total_count']);
 
     // Orders
     Route::get('orders',[OrderController::class,'index']);
-    Route::post('orders/{order_id}/update',[OrderController::class,'update']);
     Route::post('orders/create',[OrderController::class,'create']);
     Route::get('orders/{order_id}/show',[OrderController::class,'show']);
+    Route::post('orders/{order_id}/update',[OrderController::class,'update']);
     Route::delete('orders/{order_id}/delete',[OrderController::class,'destroy']);
     Route::delete('orderItems/{orderItem_id}/delete',[OrderItemController::class,'destroy']);
 
@@ -63,7 +56,6 @@ Route::group([
     Route::post('categories/{category_id}/update',[CategoryController::class,'edit']);
     Route::post('categories/create',[CategoryController::class,'create']);
     Route::delete('categories/{category_id}/delete',[CategoryController::class,'destroy']);
-    Route::get('categories',[CategoryController::class,'index']);
 
     // Favorites
     Route::get('favorites',[FavoriteController::class,'index']);
@@ -85,5 +77,14 @@ Route::post('users/create',[UserController::class,'create']);
 
 Route::post('users/store',[UserController::class,'store']);
 
+Route::post('products',[ProductController::class,'index']);
+Route::get('products/top_sellers',[ProductController::class,'index_top_sellers']);
+Route::get('products/slug/{slug}',[ProductController::class,'show']);
+Route::get('products/id/{product_id}',[ProductController::class,'show_by_id']);
+Route::get('products/{product_id}/price',[ProductController::class,'get_price']);
+Route::get('products/{product_id}/image',[ProductController::class,'get_image']);
+Route::get('products_total_count',[ProductController::class,'get_total_count']);
 
+
+Route::get('categories',[CategoryController::class,'index']);
 
