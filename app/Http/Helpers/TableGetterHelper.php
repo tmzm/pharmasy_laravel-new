@@ -18,6 +18,13 @@ trait TableGetterHelper
         self::ok($products);
     }
 
+    public function total_count($filters)
+    {
+        $products = Product::filter($filters)->latest()->get();
+
+        return $products;
+    }
+
     public function get_product_by_id($product_id): void
     {
         $product = Product::find($product_id);

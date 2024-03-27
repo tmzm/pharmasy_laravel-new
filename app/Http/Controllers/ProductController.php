@@ -45,7 +45,7 @@ class ProductController extends Controller
 
     public function get_total_count()
     {
-        self::ok(Product::all()->count());
+        self::ok(self::total_count(request(['search', 'categories','price']))->count());
     }
 
 

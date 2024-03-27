@@ -83,7 +83,7 @@ Route::get('products/slug/{slug}',[ProductController::class,'show']);
 Route::get('products/id/{product_id}',[ProductController::class,'show_by_id']);
 Route::get('products/{product_id}/price',[ProductController::class,'get_price']);
 Route::get('products/{product_id}/image',[ProductController::class,'get_image']);
-Route::get('products_total_count',[ProductController::class,'get_total_count']);
+Route::post('products_total_count',[ProductController::class,'get_total_count']);
 
 
 Route::get('categories',[CategoryController::class,'index']);
