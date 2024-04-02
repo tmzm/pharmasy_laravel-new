@@ -13,7 +13,7 @@ trait TableGetterHelper
 {
     public function filter_products($filters): void
     {
-        $products = Product::filter($filters)->latest()->get();
+        $products = Product::filter($filters)->get();
 
         self::ok($products);
     }

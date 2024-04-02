@@ -31,6 +31,10 @@ class Product extends Model
                 $query
                     ->where('scientific_name', 'like', '%' . $filters['search'] . '%')
                     ->orWhere('commercial_name', 'like', '%' . $filters['search'] . '%')
+                    ->orWhere('description', 'like', '%' . $filters['search'] . '%')
+                    ->orWhere('meta_description', 'like', '%' . $filters['search'] . '%')
+                    ->orWhere('meta_title', 'like', '%' . $filters['search'] . '%')
+                    ->orWhere('meta_subtitle', 'like', '%' . $filters['search'] . '%')
             );
 
         }
@@ -59,6 +63,38 @@ class Product extends Model
 
             $query->whereBetween('price',$filters['price']);
 
+        }
+
+        if($filters['sort'] ?? false){
+
+            if($filters['sort'] == 'a-z'){
+
+                $query->orderBy('scientific_name', 'asc');
+    
+            }
+            
+            if($filters['sort'] == 'prices (low first)'){
+    
+                $query->orderBy('price', 'asc');
+    
+            }
+            
+            if($filters['sort'] == 'prices (high first)'){
+                
+                $query->orderBy('price', 'desc');
+    
+            }
+
+            if($filters['sort'] == 'oldest'){
+                
+                $query->oldest();
+    
+            }
+
+        }else{
+            
+            $query->latest();
+            
         }
 
     }

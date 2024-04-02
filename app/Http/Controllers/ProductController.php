@@ -17,7 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        self::filter_products(request(['search', 'categories', 'take', 'skip','price']));
+        self::filter_products(request(['search', 'categories','sort', 'take', 'skip','price']));
     }
 
     public function index_top_sellers()
