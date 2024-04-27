@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePrescriptionRequest;
 use App\Models\Prescription;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PrescriptionController extends Controller
@@ -14,7 +15,11 @@ class PrescriptionController extends Controller
      */
     public function index(Request $request)
     {
-        self::ok(Prescription::latest()->get());
+        if($request->user()->role == 'user'){
+            self::ok(Prescription::where('user_id',$request->user()->id)->latest()->get());
+        }else{
+            self::ok(Prescription::latest()->get());
+        }
     }
 
     /**
@@ -54,18 +59,27 @@ class PrescriptionController extends Controller
      * @param Request $request
      * @param $order_id
      */
-    public function update($prescription_id,$order_id): void
+    public function update($prescription_id, $order_id): void
     {
         Prescription::find($prescription_id)->update(['order_id' => $order_id]);
     }
 
-    // /**
-    //  * Remove the specified resource from storage.
-    //  * @param Request $request
-    //  * @param $order_id
-    //  */
-    // public function destroy(Request $request,$order_id): void
-    // {
-    //      self::delete_order($request,$order_id);
-    // }
+    /**
+     * Remove the specified resource from storage.
+     * @param Request $request
+     * @param $order_id
+     */
+    public function destroy($prescription_id): void
+    {
+        $prescription = Prescription::find($prescription_id);
+        $is_deleted = $prescription->delete();
+
+        (new NotificationController)->notify(
+            'Prescription deleted',
+            'your Prescription has been removed because it not valid, please try again',
+            User::find($prescription->user_id)
+        );
+
+        $is_deleted ? self::ok() : self::unHandledError();
+    }
 }

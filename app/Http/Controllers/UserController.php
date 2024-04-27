@@ -62,14 +62,6 @@ class UserController extends Controller
     /**
      * @param Request $request
      */
-    public function upgrade(Request $request,$user_d)
-    {
-        self::upgrade_to_admin($request,$user_d);
-    }
-
-    /**
-     * @param Request $request
-     */
     public function index()
     {
         self::ok(User::latest()->get());

@@ -29,9 +29,6 @@ Route::group([
 
     Route::post('users/update',[UserController::class,'update']);
 
-    // Upgrade admin to accepted admin
-    Route::post('users/admin/{user_id}/upgrade',[UserController::class,'upgrade']);
-
     // Users
     Route::get('users',[UserController::class,'index']);
     Route::post('users/update',[UserController::class,'update']);
@@ -59,7 +56,7 @@ Route::group([
 
     // Favorites
     Route::get('favorites',[FavoriteController::class,'index']);
-    Route::get('favorites/{order_id}',[FavoriteController::class,'show']);
+    Route::get('favorites/{product_id}',[FavoriteController::class,'show']);
     Route::post('favorites/product/{product_id}/create',[FavoriteController::class,'create']);
     Route::delete('favorites/{favorites_id}/delete',[FavoriteController::class,'destroy']);
     
@@ -67,10 +64,15 @@ Route::group([
     Route::post('prescriptions/create',[PrescriptionController::class,'create']);
     Route::get('prescriptions',[PrescriptionController::class,'index']);
     Route::get('prescriptions/{prescription_id}/orders/{order_id}',[PrescriptionController::class,'update']);
+    Route::delete('prescriptions/{prescription_id}/delete',[PrescriptionController::class,'destroy']);
 
     // Locations
     Route::post('locations/create',[LocationController::class,'create']);
     Route::get('locations',[LocationController::class,'index']);
+
+    // Notification
+    Route::get('notifications',[NotificationController::class,'index']);
+    Route::get('notifications/read',[NotificationController::class,'read_notify']);
 });
 
 Route::post('users/create',[UserController::class,'create']);

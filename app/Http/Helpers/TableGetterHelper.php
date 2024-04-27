@@ -57,11 +57,11 @@ trait TableGetterHelper
         self::ok($favorites);
     }
 
-    public function get_user_favorite_by_id($favorite_id,$user_id): void
+    public function get_user_favorite_by_id($product_id,$user_id): void
     {
-        $favorite = Favorite::find($favorite_id)?->firstWhere('user_id',$user_id);
+        $favorite = Favorite::firstWhere('product_id',$product_id)?->where('user_id',$user_id);
 
-        $favorite ? self::ok($favorite) : self::notFound();
+        $favorite ? self::ok(true) : self::ok(false);
     }
 
     public function get_all_categories(): void

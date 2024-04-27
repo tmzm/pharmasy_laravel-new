@@ -32,9 +32,9 @@ class FavoriteController extends Controller
      * @param Request $request
      * @param $favorite_id
      */
-    public function show(Request $request,$favorite_id)
+    public function show(Request $request,$product_id)
     {
-        self::get_user_favorite_by_id($favorite_id,$request->user()->id);
+        self::get_user_favorite_by_id($product_id,$request->user()->id);
     }
 
     /**

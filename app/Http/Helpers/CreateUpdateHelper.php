@@ -52,7 +52,7 @@ trait CreateUpdateHelper
         if(count($orders))
             foreach ($orders as $order) {
                 $order_item = OrderItem::byOrderAndProduct($order->id,$product->id)->first();
-                $order->total_price -= $product->price * $order_item->quantity;
+                $order->total_price -= $product->is_offer ? $product->price - ($product->price * $product->offer) / 100 : $product->price * $order_item->quantity;
                 $order->save();
             }
     }
@@ -132,7 +132,6 @@ trait CreateUpdateHelper
             'password' => bcrypt($data['password']),
             'role' => $data['role'],
             'device_key' => $data['device_key'] ?? null,
-            'avatar' => $data['avatar'] ?? null
         ]);
     }
 
@@ -320,7 +319,7 @@ trait CreateUpdateHelper
                     (new NotificationController)->notify(
                         'series order changes',
                         'an order product: '.$product->commercial_name .' no longer available',
-                        $user->device_key
+                        $user
                     );
                 }
             }

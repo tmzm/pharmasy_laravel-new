@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('total_price')->nullable();
             $table->timestamp('time')->nullable();
             $table->boolean('is_time')->default(false);
+            $table->text('note')->nullable();
             $table->boolean('accepted_by_user')->default(true);
             $table->boolean('is_prescription')->default(false);
             $table->foreignId('location_id')->nullable()->constrained()->nullOnDelete();
